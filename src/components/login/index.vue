@@ -1,7 +1,3 @@
-/**
-* Created by vouill on 11/13/17.
-*/
-
 <template>
   <div>
     <form class="login" @submit.prevent="login">
@@ -37,12 +33,13 @@
       }
     },
     methods: {
-      login: function () {
+      login: async function () {
         const { username, password } = this
-        this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
+        try {
+          await this.$store.dispatch(AUTH_REQUEST, { username, password })
           this.$router.push('/')
-        })
+        } catch (err) {}
       }
-    },
+    }
   }
 </script>

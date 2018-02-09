@@ -2,23 +2,17 @@
   <div id="app">
     <navigation/>
     <div class="main-container">
-      <center-container>
-        <router-view/>
-      </center-container>
+      <router-view/>
     </div>
-    <sqreen-footer/>
   </div>
 </template>
 
 <script>
 import Navigation from 'components/navigation'
 import { USER_REQUEST } from 'actions/user'
-import SqreenFooter from './components/footer/index.vue'
 
 export default {
-  components: {
-    SqreenFooter,
-    Navigation },
+  components: { Navigation },
   name: 'app',
   created: function () {
     if (this.$store.getters.isAuthenticated) {

@@ -1,4 +1,5 @@
 import { USER_REQUEST, USER_ERROR, USER_SUCCESS } from '../actions/user'
+import { SUCCESS, LOADING, ERROR } from '../enum/loginStatus'
 import apiCall from 'utils/api'
 import Vue from 'vue'
 import { AUTH_LOGOUT } from '../actions/auth'
@@ -27,14 +28,14 @@ const actions = {
 
 const mutations = {
   [USER_REQUEST]: (state) => {
-    state.status = 'loading'
+    state.status = LOADING
   },
   [USER_SUCCESS]: (state, resp) => {
-    state.status = 'success'
+    state.status = SUCCESS
     Vue.set(state, 'profile', resp)
   },
   [USER_ERROR]: (state) => {
-    state.status = 'error'
+    state.status = ERROR
   },
   [AUTH_LOGOUT]: (state) => {
     state.profile = {}

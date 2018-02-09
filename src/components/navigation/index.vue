@@ -1,7 +1,3 @@
-/**
-* Created by vouill on 11/13/17.
-*/
-
 <template>
   <div class="navigation">
     <ul>
@@ -24,6 +20,27 @@
     </ul>
   </div>
 </template>
+
+<script>
+  import { mapGetters, mapState } from 'vuex'
+  import { AUTH_LOGOUT } from 'actions/auth'
+
+  export default {
+    name: 'navigation',
+    methods: {
+      logout: function () {
+        this.$store.dispatch(AUTH_LOGOUT).then(() => this.$router.push('/login'))
+      }
+    },
+    computed: {
+      ...mapGetters(['getProfile', 'isAuthenticated', 'isProfileLoaded']),
+      ...mapState({
+        authLoading: state => state.auth.status === 'loading',
+        name: state => `${state.user.profile.title} ${state.user.profile.name}`,
+      })
+    },
+  }
+</script>
 
 <style lang="scss" scoped>
   a {
@@ -59,24 +76,3 @@
   }
 
 </style>
-
-<script>
-  import { mapGetters, mapState } from 'vuex'
-  import { AUTH_LOGOUT } from 'actions/auth'
-
-  export default {
-    name: 'navigation',
-    methods: {
-      logout: function () {
-        this.$store.dispatch(AUTH_LOGOUT).then(() => this.$router.push('/login'))
-      }
-    },
-    computed: {
-      ...mapGetters(['getProfile', 'isAuthenticated', 'isProfileLoaded']),
-      ...mapState({
-        authLoading: state => state.auth.status === 'loading',
-        name: state => `${state.user.profile.title} ${state.user.profile.name}`,
-      })
-    },
-  }
-</script>
